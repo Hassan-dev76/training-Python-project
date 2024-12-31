@@ -1,0 +1,294 @@
+#### Megic Methods #####
+
+Magic methods in Python (also known as **dunder methods**, for their double underscores) are special methods that allow you to define the behavior of objects when they interact with built-in Python operations. These methods are surrounded by double underscores (`__method_name__`), and they allow Python to emulate certain behaviors or operators, like addition, subtraction, and string formatting.
+
+Here’s a detailed breakdown of commonly used magic methods in Python:
+
+---
+
+### 1. **Object Initialization and Representation**
+
+- **`__init__(self, ...)`**: 
+    - Called when a new object is created (constructor).
+    - Used to initialize the object with specific attributes.
+    - Example:
+      ```python
+      class MyClass:
+          def __init__(self, name):
+              self.name = name
+      ```
+
+- **`__str__(self)`**:
+    - Returns a user-friendly string representation of the object (called by `str()` or `print()`).
+    - Example:
+      ```python
+      class MyClass:
+          def __str__(self):
+              return f"MyClass object: {self.name}"
+      ```
+
+- **`__repr__(self)`**:
+    - Returns a string representation that is intended to be more unambiguous (used by `repr()`).
+    - Typically, it’s used to represent the object in a way that could be used to recreate it.
+    - Example:
+      ```python
+      class MyClass:
+          def __repr__(self):
+              return f"MyClass('{self.name}')"
+      ```
+
+- **`__del__(self)`**:
+    - Destructor method, called when an object is about to be destroyed (useful for cleanup).
+    - Example:
+      ```python
+      class MyClass:
+          def __del__(self):
+              print(f"Object {self.name} is being destroyed.")
+      ```
+
+---
+
+### 2. **Arithmetic Operations**
+
+- **`__add__(self, other)`**:
+    - Handles the `+` operation.
+    - Example:
+      ```python
+      class MyClass:
+          def __add__(self, other):
+              return self.value + other.value
+      ```
+
+- **`__sub__(self, other)`**:
+    - Handles the `-` operation.
+    - Example:
+      ```python
+      class MyClass:
+          def __sub__(self, other):
+              return self.value - other.value
+      ```
+
+- **`__mul__(self, other)`**:
+    - Handles the `*` (multiplication) operation.
+    - Example:
+      ```python
+      class MyClass:
+          def __mul__(self, other):
+              return self.value * other.value
+      ```
+
+- **`__truediv__(self, other)`**:
+    - Handles the `/` (division) operation.
+    - Example:
+      ```python
+      class MyClass:
+          def __truediv__(self, other):
+              return self.value / other.value
+      ```
+
+- **`__floordiv__(self, other)`**:
+    - Handles the `//` (floor division) operation.
+    - Example:
+      ```python
+      class MyClass:
+          def __floordiv__(self, other):
+              return self.value // other.value
+      ```
+
+- **`__mod__(self, other)`**:
+    - Handles the `%` (modulus) operation.
+    - Example:
+      ```python
+      class MyClass:
+          def __mod__(self, other):
+              return self.value % other.value
+      ```
+
+- **`__pow__(self, other)`**:
+    - Handles the `**` (exponentiation) operation.
+    - Example:
+      ```python
+      class MyClass:
+          def __pow__(self, other):
+              return self.value ** other.value
+      ```
+
+---
+
+### 3. **Comparison Operations**
+
+- **`__eq__(self, other)`**:
+    - Handles the equality operator (`==`).
+    - Example:
+      ```python
+      class MyClass:
+          def __eq__(self, other):
+              return self.value == other.value
+      ```
+
+- **`__ne__(self, other)`**:
+    - Handles the not equal operator (`!=`).
+    - Example:
+      ```python
+      class MyClass:
+          def __ne__(self, other):
+              return self.value != other.value
+      ```
+
+- **`__lt__(self, other)`**:
+    - Handles the less-than operator (`<`).
+    - Example:
+      ```python
+      class MyClass:
+          def __lt__(self, other):
+              return self.value < other.value
+      ```
+
+- **`__le__(self, other)`**:
+    - Handles the less-than or equal operator (`<=`).
+    - Example:
+      ```python
+      class MyClass:
+          def __le__(self, other):
+              return self.value <= other.value
+      ```
+
+- **`__gt__(self, other)`**:
+    - Handles the greater-than operator (`>`).
+    - Example:
+      ```python
+      class MyClass:
+          def __gt__(self, other):
+              return self.value > other.value
+      ```
+
+- **`__ge__(self, other)`**:
+    - Handles the greater-than or equal operator (`>=`).
+    - Example:
+      ```python
+      class MyClass:
+          def __ge__(self, other):
+              return self.value >= other.value
+      ```
+
+---
+
+### 4. **Container and Sequence Methods**
+
+- **`__len__(self)`**:
+    - Handles the `len()` function to return the size of an object.
+    - Example:
+      ```python
+      class MyClass:
+          def __len__(self):
+              return len(self.items)
+      ```
+
+- **`__getitem__(self, key)`**:
+    - Handles indexing (`obj[key]`), allows access to elements of the object.
+    - Example:
+      ```python
+      class MyClass:
+          def __getitem__(self, key):
+              return self.items[key]
+      ```
+
+- **`__setitem__(self, key, value)`**:
+    - Handles setting values in an object by index (`obj[key] = value`).
+    - Example:
+      ```python
+      class MyClass:
+          def __setitem__(self, key, value):
+              self.items[key] = value
+      ```
+
+- **`__delitem__(self, key)`**:
+    - Handles deletion by index (`del obj[key]`).
+    - Example:
+      ```python
+      class MyClass:
+          def __delitem__(self, key):
+              del self.items[key]
+      ```
+
+- **`__iter__(self)`**:
+    - Allows the object to be iterable in a loop.
+    - Example:
+      ```python
+      class MyClass:
+          def __iter__(self):
+              return iter(self.items)
+      ```
+
+- **`__next__(self)`**:
+    - Used with the iterator to return the next element.
+    - Example:
+      ```python
+      class MyClass:
+          def __next__(self):
+              if self.index < len(self.items):
+                  result = self.items[self.index]
+                  self.index += 1
+                  return result
+              else:
+                  raise StopIteration
+      ```
+
+---
+
+### 5. **Context Management**
+
+- **`__enter__(self)`**:
+    - Called when entering a `with` block.
+    - Example:
+      ```python
+      class MyClass:
+          def __enter__(self):
+              print("Entering context.")
+              return self
+      ```
+
+- **`__exit__(self, exc_type, exc_val, exc_tb)`**:
+    - Called when exiting a `with` block.
+    - Example:
+      ```python
+      class MyClass:
+          def __exit__(self, exc_type, exc_val, exc_tb):
+              print("Exiting context.")
+      ```
+
+---
+
+### 6. **Call and Arithmetic**
+
+- **`__call__(self, ...)`**:
+    - Allows an instance(object) of a class to be called as a function.
+    - Object ko funtion kii terha call kiya ja sakta hai
+    - Example:
+      ```python
+      class MyClass:
+          def __call__(self, name):
+              print(f"Hello, {name}")
+
+      obj = MyClass
+      obj()  # work with the help of __call__ method
+      ```
+
+---
+
+### Summary
+Magic methods allow you to control the behavior of objects with common Python operators and functions. These methods help you customize the functionality of your classes, making them behave more like built-in Python types.
+
+- **Initialization**: `__init__`
+- **Representation**: `__str__`, `__repr__`
+- **Arithmetic**: `__add__`, `__sub__`, `__mul__`, etc.
+- **Comparison**: `__eq__`, `__lt__`, `__gt__`, etc.
+- **Container behavior**: `__len__`, `__getitem__`, `__setitem__`, etc.
+- **Context management**: `__enter__`, `__exit__`
+- **Callable objects**: `__call__`
+
+By using magic methods, you can design objects that are compatible with Python's built-in functionality and operators.
+
+
+
+

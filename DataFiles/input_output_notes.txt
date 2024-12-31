@@ -1,0 +1,104 @@
+
+---
+
+### File I/O in Python
+
+Python allows you to work with files by reading from and writing to them. There are two main types of files you can handle:
+
+1. **Text Files** (e.g., `.txt`, `.log`, `.docx`): These contain plain text data.
+2. **Binary Files** (e.g., `.mp4`, `.jpg`, `.png`): These contain binary data like images and videos.
+
+### Opening, Reading, and Closing Files
+
+Before you can read or write to a file, you need to **open** it. You can open a file using the `open()` function.
+
+```python
+f = open("file_name", "mode")
+```
+
+- `file_name`: The name of the file you want to open.
+- `mode`: The mode in which you want to open the file. Common modes include:
+  - `"r"`: Read (default mode, used for reading the file).
+  - `"w"`: Write (used to overwrite the file).
+  - `"a"`: Append (used to add to the end of the file).
+  - `"rb"`: Read in binary mode.
+  - `"wb"`: Write in binary mode.
+
+After performing the operations, **close** the file using `f.close()`.
+
+---
+
+### Reading a File
+
+You can read the contents of a file in different ways:
+
+1. **Read the entire file**:
+
+```python
+data = f.read()
+```
+
+2. **Read one line at a time**:
+
+```python
+data = f.readline()  # Reads one line at a time
+```
+
+---
+
+### Writing to a File
+
+To write data to a file, you must open the file in write (`"w"`) or append (`"a"`) mode:
+
+1. **Write to a file (overwrite)**:
+
+```python
+f = open("demo.txt", "w")
+f.write("This is a new line.")
+f.close()
+```
+
+2. **Append to a file (add to the file)**:
+
+```python
+f = open("demo.txt", "a")
+f.write("This is an additional line.")
+f.close()
+```
+
+---
+
+### Using `with` Syntax (Recommended)
+
+It is good practice to use the `with` statement when working with files, as it automatically handles file closing for you, even if an error occurs:
+
+```python
+with open("demo.txt", "a") as f:
+    f.write("This line will be added safely.")
+```
+
+The `with` statement ensures that the file is closed properly once the block of code is finished.
+
+---
+
+### Deleting a File
+
+To delete a file, you can use the `os` module in Python. The `os.remove()` function allows you to delete the file:
+
+```python
+import os
+os.remove("demo.txt")  # Deletes the file
+```
+
+---
+
+### Summary
+
+- **Opening files**: Use `open(file_name, mode)` to open files.
+- **Reading**: Use `f.read()` to read the whole file, or `f.readline()` to read one line at a time.
+- **Writing**: Use `f.write()` to write to a file. Use `"w"` to overwrite, and `"a"` to append.
+- **Closing**: Always close the file using `f.close()` or use `with open()` to automatically close it.
+- **Deleting**: Use `os.remove("file_name")` to delete a file.
+
+--- 
+
